@@ -39,15 +39,49 @@ http://www.linuxfromscratch.org/blfs/view/svn/general/dbus.html
 
 Packages that will not installed thru blueprints right now
 ======================================================================
-- xorg libraries (and dev)
-- libdrm-2.4.70
-- Mesa 12.0.1
-- GLU
-- FreeGLUT
 - libmount
-- xutils-dev
+- libdrm-dev
 - libegl1-mesa-dev
+- libpthread-stubs0-dev
+- libwayland-dev
+- libx11-dev
+- libx11-xcb-dev
+- libxau-dev
+- libxcb1-dev
+- libxcb-dri2-0-dev
+- libxcb-dri3-dev
+- libxcb-glx0-dev
+- libxcb-present-dev
+- libxcb-randr0-dev
+- libxcb-render0-dev
+- libxcb-shape0-dev
+- libxcb-sync-dev
+- libxcb-xfixes0-dev
+- libxdamage-dev
+- libxdmcp-dev
+- libxext-dev
+- libxfixes-dev
+- libxshmfence-dev
+- libxxf86vm-dev
+- linux-libc-dev
 - mesa-common-dev
-- libdbus-1-dev
+- x11proto-composite-dev
+- x11proto-core-dev
+- x11proto-damage-dev
+- x11proto-dri2-dev
+- x11proto-fixes-dev
+- x11proto-gl-dev
+- x11proto-input-dev
+- x11proto-kb-dev
+- x11proto-randr-dev
+- x11proto-record-dev
+- x11proto-render-dev
+- x11proto-scrnsaver-dev
+- x11proto-video-dev
+- x11proto-xext-dev
+- x11proto-xf86vidmode-dev
+- x11proto-xinerama-dev
+- xtrans-dev
+- xutils-dev
 
 # vim: ft=markdown:
