@@ -68,21 +68,33 @@ done
 
 function fetch_svn() {
 while (( "${#}" )); do
-	SVN co "${REPOSITORY}/${1}" "${REPOSITORY_ALIAS}"
+	if [ -z "${REPOSITORY_ALIAS}" ]; then
+		svn co "${REPOSITORY}/${1}" 
+	else 
+	svn co "${REPOSITORY}/${1}" "${REPOSITORY_ALIAS}"
+	fi
 	shift
 done
 }
 
 function fetch_git() {
 while (( "${#}" )); do
-	git clone "${REPOSITORY}/${1}" "${REPOSITORY_ALIAS}"
+	if [ -z "${REPOSITORY_ALIAS}" ]; then
+		git clone "${REPOSITORY}/${1}"
+	else 
+		git clone "${REPOSITORY}/${1}" "${REPOSITORY_ALIAS}"
+	fi
 	shift
 done
 }
 
 function fetch_hg() {
 while (( "${#}" )); do
-	hg clone "${REPOSITORY}/${1}" "${REPOSITORY_ALIAS}"
+	if [ -z "${REPOSITORY_ALIAS}" ]; then
+		hg clone "${REPOSITORY}/${1}"
+	else 
+		hg clone "${REPOSITORY}/${1}" "${REPOSITORY_ALIAS}"
+	fi
 	shift
 done
 }
@@ -139,7 +151,6 @@ if [ "${INSTALL_THIS_BLUEPRINT}" = "NO" ]; then
 fi
 set -x
 source "${BLUEPRINT}"
-set +x
 echo -ne "${GREEN}=========================================\n"
 echo -ne "${GREEN}       ${1}\n"
 echo -ne "${GREEN}=========================================\n"
@@ -155,6 +166,7 @@ for module in ${MODULES}; do
 	compile "${module}"
 	shift
 	popd
+set +x
 done
 }
 
