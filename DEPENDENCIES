@@ -1,0 +1,17 @@
+# Build
+autotools-dev
+libfl-dev
+libltdl-dev
+libopts25-dev
+
+# Python
+libexpat1-dev
+libpython2.7-dev
+libpython3.4-dev
+libpython3-dev
+libpython-dev
+python2.7-dev
+python3.4-dev
+python3-dev
+python-dev
+
