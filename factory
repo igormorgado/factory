@@ -1,28 +1,5 @@
 #!/bin/bash +x
 
-# HINT {{{
-# To run this code you need to install some tools, in debian you should
-# install at least:
-#
-# To build:
-#	build-essential
-#	libtool
-#	autogen
-#	automake
-#   autopoint
-#   pkg-config
-#	python-pip
-#   libdbus-1
-#	bison
-#	flex
-# To download source:
-#	cvs
-#	svn
-#	mercurial
-#	git
-#
-# }}}
-
 # TODO {{{
 #
 # Create a parameter (or conf) to avoid download sources, just run
@@ -30,9 +7,6 @@
 # Move prerequisites to the packages
 # Implement ordered building (PLANTS)
 # - On git fetch if dir exist run git pull instead git clone
-# - Create an external conffile to add global parameters as:
-#    	LD_LIBS
-#	    MAKE_FLAGS
 # the compilation steps (in case of no internet)
 # - Create preexec and postexec methods
 # - Move custom build methods to the blueprint
@@ -87,41 +61,13 @@
 #
 #}}}
 
-# Inital variables {{{
-# Where to install the packages
-FACTORY_PREFIX=${HOME}/usr
+declare -a FACTORY_CFLAGS
+declare -a FACTORY_LDFLAGS
 
-
-# Where all conf lies
-FACTORY_CONFDIR=${HOME}/bin/factory.d
-
-# Where to store the sources
-FACTORY_SRCDIR="${HOME}/src"
-
-# Add more paths to build
-PATH=${FACTORY_PREFIX}/bin:${HOME}/bin:${PATH}
-
-# Insert the compiled libraries on lib path
-PKG_CONFIG_PATH=${FACTORY_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}
-LD_LIBRARY_PATH=${FACTORY_PREFIX}/lib:${LD_LIBRARY_PATH}
-LD_RUN_PATH=${FACTORY_PREFIX}/lib:${LD_RUN_PATH}
-
-# Compilation flags
-CFLAGS+=" -O3 -ffast-math -march=native"
-CFLAGS+=" -I${FACTORY_PREFIX}/include"
-LDFLAGS+=" -L${FACTORY_PREFIX}/lib"
-# LIBS        libraries to pass to the linker, e.g. -l<library>
-# CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
-#             you have headers in a nonstandard directory <include dir>
-
-PREFIX=${FACTORY_PREFIX}
-
-
-# Execute starting procedures
-[ -d "${FACTORY_SRCDIR}" ] || mkdir -p "${FACTORY_SRCDIR}"
+source %%FACTORY_CONFDIR%%/factory.config
 
 export FACTORY_SRCDIR FACTORY_CONFDIR FACTORY_PREFIX
-export PATH PKG_CONFIG_PATH LD_LIBRARY_PATH LD_RUN_PATH CFLAGS LDFLAGS PREFIX
+export FACTORY_CFLAGS FACTORY_LDFLAGS 
 
 #}}}
 
@@ -240,7 +186,7 @@ local dstdir
 
 if [ -z "${1}" ]; then
 	echo "We need a blueprint. Choose from:"
-	ls -1 "${FACTORY_CONFDIR}"
+	find "${FACTORY_CONFDIR}" -maxdepth 1 -name '*.conf' -exec basename {} \; | sed "s/.conf//g"
 	return 1
 fi
 
@@ -287,7 +233,7 @@ done
 case $- in
 	*i*) return ;;
 	*)
-		ls  "${FACTORY_CONFDIR}"
+		find "${FACTORY_CONFDIR}" -maxdepth 1 -name '*.conf' -exec basename {} \; | sed "s/.conf//g"
 		# mass_produce
 		;;
 esac
