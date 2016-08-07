@@ -1,66 +1,7 @@
 #!/bin/bash +x
 
-# TODO {{{
-#
-# Create a parameter (or conf) to avoid download sources, just run
-# and to download only not build
-# Move prerequisites to the packages
-# Implement ordered building (PLANTS)
-# - On git fetch if dir exist run git pull instead git clone
-# the compilation steps (in case of no internet)
-# - Create preexec and postexec methods
-# - Move custom build methods to the blueprint
-# - Add a way to list all valid blueprints and plants
-# - Create a proxymode (elegant)
-# 	PROXYPASS=${1}
-# 	PROXYUSER="${2:-$(whoami)}"
-# 	PROXYSERVER="${3:-'165.225.34.32:80'}"
-# 	export http_proxy="http://${PROXYUSER}@${PROXYSERVER}"
-# 	export https_proxy="http://${PROXYUSER}@${PROXYSERVER}"
-# 	echo ${http_proxy}
-# - Add a variable to point to BLUEPRINT (FACTORYBLUEPRINT)
-# - Check all references to cd - and cd and change for pushd/popd
-# - Write function to install Python packages (verify if is inst first)
-# - Write function to install deb pkgs (Verify first if isn't already inst)
-# - Stop production when a error ocurrs ( correctly )
-#
-# Create blueprints to the packages:
-# ======================================================================
-# gtkdoc
-# many xml stuff required by gtkdoc
-# gtk3
-# libblkid
-# libgs
-# libpulse
-# libudev
-# libxine
-#
-# Follow the compilation guides from LFS documentation is a nice thing
-# ======================================================================
-# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/libogg.html
-# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/libvorbis.html
-# http://www.linuxfromscratch.org/blfs/view/svn/server/sqlite.html
-# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/pulseaudio.html
-# http://www.linuxfromscratch.org/blfs/view/svn/general/nasm.html
-# http://www.linuxfromscratch.org/blfs/view/svn/general/nasm.html
-# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-lib.html
-# http://www.linuxfromscratch.org/blfs/view/svn/general/dbus.html
-#
-# Packages that will not installed thru blueprints right now
-# ======================================================================
-# xorg libraries (and dev)
-# libdrm-2.4.70
-# Mesa 12.0.1
-# GLU
-# FreeGLUT
-# libmount
-# xutils-dev
-# libegl1-mesa-dev
-# mesa-common-dev
-# libdbus-1-dev
-#
-#}}}
 
+# Load conf and defaults
 declare -a FACTORY_CFLAGS
 declare -a FACTORY_LDFLAGS
 
@@ -68,8 +9,6 @@ source %%FACTORY_CONFDIR%%/factory.config
 
 export FACTORY_SRCDIR FACTORY_CONFDIR FACTORY_PREFIX
 export FACTORY_CFLAGS FACTORY_LDFLAGS 
-
-#}}}
 
 # Support functions {{{
 function ar_c_m_mi() {
@@ -151,7 +90,7 @@ done
 
 function fetch() {
 while (( "${#}" )); do
-	fetch "${METHOD}" "${1}"
+	fetch_"${METHOD}" "${1}"
 	shift
 done
 
@@ -178,8 +117,6 @@ pushd "${dstdir}" && \
 
 function produce() {
 # All blue print variables are local
-#unset BUILD CONF_FLAGS MODULES REPOSITORY_ALIAS INSTALL_THIS_BLUEPRINT
-#unset DPKGDEP PYDEP REPOSITORY METHOD
 local BUILD CONF_FLAGS MODULES REPOSITORY_ALIAS INSTALL_THIS_BLUEPRINT
 local DPKGDEP PYDEP REPOSITORY METHOD
 local dstdir
@@ -200,8 +137,9 @@ if [ "${INSTALL_THIS_BLUEPRINT}" = "NO" ]; then
 	echo "${YELLOW}Plant ${CRST}${BLUEPRINT}${YELLOW} will not be installed${CRST}"
 	return
 fi
-
+set -x
 source "${BLUEPRINT}"
+set +x
 echo -ne "${GREEN}=========================================\n"
 echo -ne "${GREEN}       ${1}\n"
 echo -ne "${GREEN}=========================================\n"
