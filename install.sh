@@ -49,5 +49,14 @@ export LD_LIBRARY_PATH=${FACTORY_PREFIX}/lib:\${LD_LIBRARY_PATH}
 export LD_RUN_PATH=${FACTORY_PREFIX}/lib:\${LD_RUN_PATH}
 source ${FACTORY_BINDIR}/factory
 
+
+Relog or reload your bash configuration.  To use type:
+
+produce 
+
+or
+
+produce BLUEPRINT
+
 EOF
 
