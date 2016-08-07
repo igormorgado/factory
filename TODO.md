@@ -17,14 +17,14 @@ TOPICS
 
 Create blueprints to the packages:
 ======================================================================
-gtkdoc
-many xml stuff required by gtkdoc
-gtk3
-libblkid
-libgs
-libpulse
-libudev
-libxine
+- gtkdoc
+- many xml stuff required by gtkdoc
+- gtk3
+- libblkid
+- libgs
+- libpulse
+- libudev
+- libxine
 
 Follow the compilation guides from LFS documentation is a nice thing
 ======================================================================
@@ -39,15 +39,15 @@ http://www.linuxfromscratch.org/blfs/view/svn/general/dbus.html
 
 Packages that will not installed thru blueprints right now
 ======================================================================
-xorg libraries (and dev)
-libdrm-2.4.70
-Mesa 12.0.1
-GLU
-FreeGLUT
-libmount
-xutils-dev
-libegl1-mesa-dev
-mesa-common-dev
-libdbus-1-dev
+- xorg libraries (and dev)
+- libdrm-2.4.70
+- Mesa 12.0.1
+- GLU
+- FreeGLUT
+- libmount
+- xutils-dev
+- libegl1-mesa-dev
+- mesa-common-dev
+- libdbus-1-dev
 
 # vim: ft=markdown:
