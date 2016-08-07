@@ -122,8 +122,8 @@ else
 fi
 
 pushd "${dstdir}" && \
-	${BUILD} && \
-	popd
+	${BUILD}
+popd
 }
 
 
@@ -149,7 +149,6 @@ if [ "${INSTALL_THIS_BLUEPRINT}" = "NO" ]; then
 	echo "${YELLOW}Plant ${CRST}${BLUEPRINT}${YELLOW} will not be installed${CRST}"
 	return
 fi
-set -x
 source "${BLUEPRINT}"
 echo -ne "${GREEN}=========================================\n"
 echo -ne "${GREEN}       ${1}\n"
@@ -165,9 +164,8 @@ for module in ${MODULES}; do
 	fetch "${module}"
 	compile "${module}"
 	shift
-	popd
-set +x
 done
+popd
 }
 
 function mass_produce() {
