@@ -3,6 +3,7 @@ autotools-dev
 libfl-dev
 libltdl-dev
 libopts25-dev
+llvm
 
 # Python
 libexpat1-dev

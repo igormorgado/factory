@@ -1,5 +1,7 @@
 TOPICS
 ======================================================================
+- Enable GL support in all capable libs
+- ADd colorized output in the end of produce OK or FAIL (green/red)
 - Add colors to the factory(instead rely on my bashrc)
 - Make functions as produce compile fetch more independent. For example to use fetch from a shell you need to set a lot of things beforehand, as load the blueprint. Should be nice if fetch, compile could be ran directly from the shell without be called from "produce". PRoduce should only add some niceties as bulk install and text output.
 - Create a parameter (or conf) to avoid download sources, just run
@@ -14,6 +16,14 @@ TOPICS
 - Write function to install Python packages (verify if is inst first)
 - Write function to install deb pkgs (Verify first if isn't already inst)
 - Stop production when a error ocurrs ( correctly )
+
+Enable support to:
+======================================================================
+
+- JPEG 8/12 bit dual mode
+- ISO JBIG support
+- LZMA2 support
+- OpenGL support
 
 Create blueprints to the packages:
 ======================================================================
